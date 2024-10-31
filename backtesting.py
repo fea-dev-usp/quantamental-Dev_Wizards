@@ -21,7 +21,8 @@ def main():
     pesos = calcular_precos(prices, indicadores_limite, obj=OBJETIVO)
     
     results = backtesting(prices, indicadores_limite, pesos)
-    print(results)
+    print(results['Indicador'].stats)
+    print(results['Indicador'].display())
 
 def backtesting(prices, indicadores, pesos):
     prices = prices[prices.index >= indicadores.index.min()]
@@ -36,7 +37,7 @@ def backtesting(prices, indicadores, pesos):
     ]
 
     results = bt.run(*backtests)
-    return results['Indicador'].stats
+    return results
 
 def carregar_dados():
     indicadores = pd.read_csv('./data/indicadores/indicadores_final.csv', index_col='Data', parse_dates=True)['indicador']
